@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>0 & X</title>
+  <style type="text/css">
+   .game {
+  text-align: center;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 210px;
+  margin: 20px auto;
+}
+
+.cell {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cell:hover {
+  background-color: #f0f0f0;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="game">
+    <h1>0 & X </h1>
+    <div class="board">
+      <div class="cell" id="0"></div>
+      <div class="cell" id="1"></div>
+      <div class="cell" id="2"></div>
+      <div class="cell" id="3"></div>
+      <div class="cell" id="4"></div>
+      <div class="cell" id="5"></div>
+      <div class="cell" id="6"></div>
+      <div class="cell" id="7"></div>
+      <div class="cell" id="8"></div>
+    </div>
+    <p id="result"></p>
+    <button id="reset">Reset Game</button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+  let currentPlayer = 'X';
+  let gameOver = false;
+  let moves = 0;
+  let board = ['', '', '', '', '', '', '', '', ''];
+  const winningCombos = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+    [0, 4, 8], [2, 4, 6]             // Diagonals
+  ];
+
+  function checkWinner() {
+    for (let combo of winningCombos) {
+      if (board[combo[0]] !== '' && 
+          board[combo[0]] === board[combo[1]] && 
+          board[combo[0]] === board[combo[2]]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function handleClick() {
+    if (!gameOver && $(this).text() === '') {
+      let cellId = $(this).attr('id');
+      board[cellId] = currentPlayer;
+      $(this).text(currentPlayer);
+      moves++;
+      
+      if (checkWinner()) {
+        $('#result').text(`Player ${currentPlayer} wins!`);
+        gameOver = true;
+      } else if (moves === 9) {
+        $('#result').text('It\'s a draw!');
+        gameOver = true;
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      }
+    }
+  }
+
+  function resetGame() {
+    $('.cell').text('');
+    $('#result').text('');
+    currentPlayer = 'X';
+    gameOver = false;
+    moves = 0;
+    board = ['', '', '', '', '', '', '', '', ''];
+  }
+
+  $('.cell').on('click', handleClick);
+  $('#reset').on('click', resetGame);
+});
+
+
+  </script>
+</body>
+</html>
