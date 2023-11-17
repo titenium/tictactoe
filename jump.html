@@ -11,6 +11,7 @@ canvas {
 </style>
 </head>
 <body onload="startGame()">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
 var myGamePiece;
@@ -27,8 +28,8 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 480;
-        this.canvas.height = 270;
+        this.canvas.width = 100%;
+        this.canvas.height = 80%;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
@@ -129,8 +130,12 @@ function everyinterval(n) {
 function accelerate(n) {
     myGamePiece.gravity = n;
 }
+$(document).on("click", "#restart", function(){
+  window.location.reload();  
+});    
 </script>
 <br>
 <button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">JUMP</button>
+    <button id="restart">Restart</button>
 </body>
 </html>
