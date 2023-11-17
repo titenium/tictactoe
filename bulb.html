@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BULB</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<img id="myImage" src="pic_bulboff.gif" style="width:100px">
+<div class="form-check form-switch">
+  <input class="form-check-input" id="bulb" type="checkbox" id="flexSwitchCheckDefault">
+  <label class="form-check-label" id="bulbText" for="flexSwitchCheckDefault"></label>
+</div>
+<script type="text/javascript">
+	$(document).on('change', '#bulb', function() {
+		if($("#bulb").prop('checked') == true){
+          $("#myImage").prop("src", "pic_bulbon.gif");
+          $('#bulbText').html('BULB ON');
+		} else{
+		  $("#myImage").prop("src", "pic_bulboff.gif");
+          $('#bulbText').html('BULB OFF');
+		}
+	})
+</script>
+</body>
+</html>
